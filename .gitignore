@@ -1,0 +1,21 @@
+# 数据文件与中间产出不进版本库
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# 模型文件（体积大，按需自行决定是否上传）
+*.pkl
+*.joblib
+*.model
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# 系统
+.DS_Store
+Thumbs.db

@@ -1,0 +1,15 @@
+{
+  "LR_scorecard": {
+    "auc": 0.7639,
+    "ks": 0.4178
+  },
+  "LightGBM": {
+    "auc": 0.7681,
+    "ks": 0.4173
+  },
+  "LGB_5fold": {
+    "auc_mean": 0.7725,
+    "auc_std": 0.0048
+  },
+  "psi_lr_vs_gbm": 0.3203
+}
