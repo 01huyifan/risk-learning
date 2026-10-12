@@ -74,13 +74,17 @@ push-to-github.bat
 
 **会发生什么：**
 
-1. 弹出黑窗口，显示 `Git found. Starting upload ...`
-2. **第一次推送会弹出一个登录窗口**（Git Credential Manager）
+1. 弹出黑窗口，先问你 **`What did you change this time?`**
+   → **输入一句话说明你这次改了什么**（例如 `woe binning` / `评分卡调参`），按回车
+   → 不想写就直接按回车，它会用 `update` 当说明
+2. 然后它自己走三步：`[1/3]` 收集改动 → `[2/3]` 存档 → `[3/3]` 上传
+3. 如果**没有新改动**，第 2 步会显示 `No new changes to save`，直接跳到上传
+4. 第一次推送会弹出登录窗口（Git Credential Manager）
    - 一般会开浏览器让你登录 GitHub → 登录并点 `Authorize`
-   - 或者在窗口里填：用户名 `01huyifan`，密码用 **Token**（见第五节）
-3. 等它传输，结束后窗口会停住显示 `请按任意键继续`
+   - 或在窗口里填：用户名 `01huyifan`，密码用 **Token**（见第五节）
+5. 跑完后窗口会停住显示 `请按任意键继续`
 
-**成功的标志：** 窗口里有一行带 `main`（例如 `main -> main`），**并且没有红色报错**。
+**成功的标志：** 窗口里出现 `DONE. Your code is online:`，**并且没有红色报错**。
 
 **然后打开验证：**
 
