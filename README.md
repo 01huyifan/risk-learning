@@ -27,14 +27,53 @@ risk-learning/
 ├── 01_clean/       数据清洗与缺失/异常值处理
 ├── 02_feature/     特征工程（分箱、WOE/IV、特征交叉、目标编码）
 ├── 03_model/       建模（LR 评分卡、LightGBM、模型融合、评估）
-├── 04_fraud/       反欺诈专项（关系网络、图特征、团伙识别）
+├── 04_fraud/       反欺诈（关系网络、图特征、团伙识别）
 ├── 05_report/      评估报告与可视化产出
-├── 06_paper/       论文与文献笔记
-├── 07_course/      课程内容 Python 复现
+├── 06_paper/       论文与文献笔记、复现代码
+├── 07_course/      练习区（不属于主线项目的代码）
+│   ├── ml/             机器学习：手写 LR / GD、sklearn 实验
+│   ├── econometrics/   高级计量
+│   ├── nonparam/       非参数统计
+│   ├── causal/         因果与实验（A/B 实验、样本量计算）
+│   ├── sql/            SQL 巩固
+│   ├── pandas/         pandas 基础操作
+│   ├── algo/           算法刷题（LeetCode 题解）
+│   ├── timeseries/     时序与逾期预测
+│   ├── business/       风控业务（指标计算、决策流）
+│   └── homework/       课程作业与期末复习
 └── data/
     ├── raw/        原始数据（不进 git）
     └── processed/  中间产出
 ```
+
+### 一段代码放哪里：先问一个问题
+
+> **这段代码是在推进「信贷违约预测」这个主线项目吗？**
+>
+> - **是** → 按流水线阶段放：清洗 `01_clean` / 特征 `02_feature` / 建模 `03_model` /
+>   反欺诈 `04_fraud` / 报告 `05_report`
+> - **不是**（跟课敲的、刷题、练 SQL、做实验） → `07_course/` 下找对应主题的子目录
+>
+> 论文相关一律放 `06_paper/`。
+
+### 学习主题 → 归档位置
+
+| 学习主题 | 目录 |
+|---|---|
+| 机器学习 | `07_course/ml/` |
+| 高级计量 | `07_course/econometrics/` |
+| 非参数统计 | `07_course/nonparam/` |
+| 因果与实验 | `07_course/causal/` |
+| SQL 巩固 | `07_course/sql/` |
+| pandas | `07_course/pandas/` |
+| 算法刷题 | `07_course/algo/` |
+| 时序与逾期预测 | `07_course/timeseries/` |
+| 风控业务 | `07_course/business/` |
+| 课程作业 / 期末复习 | `07_course/homework/` |
+| 反欺诈 | `04_fraud/` |
+| 论文与文献 | `06_paper/` |
+| 项目与工程 | 仓库根目录 + 按阶段进 `01`~`04` |
+| 岗位调研 / 学业与规划 / 复盘机动 | 不用传（没有代码） |
 
 ## 运行方式
 
