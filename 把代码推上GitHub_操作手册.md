@@ -1,195 +1,186 @@
-# 明天照这个做：把代码推上 GitHub
+# 把代码推上 GitHub · 操作手册
 
-> 这份文档是**独立**的，不需要翻之前的聊天记录。
-> 现在进度：账号有、仓库有、代码在本地、远端已连好。
-> **只剩"推上去"这一个动作。**
-
----
-
-## ⭐ 最省事的办法（推荐先试这个）
-
-**不用开 Git Bash，不用敲命令。**
-
-在这个文件夹里找到 **`push-to-github.bat`**，**双击它**。
-
-- 会弹出一个黑窗口，自动开始推送
-- 如果弹出登录窗口 → 用 GitHub 账号登录（会开浏览器让你授权，照着点）
-- 跑完后窗口会停住 **`请按任意键继续`**，**先别关**，看清楚上面写的是成功还是报错
-- **成功了** → 打开 `https://github.com/01huyifan/risk-learning` 能看到文件，就完事了
-- **报错了** → 截图发出来
-
-> 如果双击后窗口一闪就没了：说明 git 没在系统 PATH 里，
-> 那就走下面第三节「打开 Git Bash」的办法。
-
-**下面第三节往后是手动版，双击法失败时再看。**
+> 这份文档是**独立**的，不需要翻聊天记录。
+> 全程两步：**装 Git → 双击一个脚本**。不用敲命令。
 
 ---
 
-## 一、先搞清楚：现在到底差什么
+## 一、现在到底差什么
 
 | 步骤 | 状态 | 说明 |
 |---|---|---|
 | 1. GitHub 账号 | ✅ 已完成 | 用户名 `01huyifan` |
 | 2. 建立远程仓库 | ✅ 已完成 | 仓库名 `risk-learning`，Public |
-| 3. 本地代码提交 | ✅ 已完成 | 本地有 3 个提交（commit） |
+| 3. 本地代码提交 | ✅ 已完成 | 本地已有 4 个提交（commit） |
 | 4. 本地关联远程 | ✅ 已完成 | `origin` 已指向你的仓库 |
-| 5. **推送（push）** | ❌ **就差这一步** | 之前失败，因为网络慢 + 没配好登录凭据 |
+| 5. **电脑上装 Git** | ❌ **差这一步** | 全盘搜索确认：**你电脑上没装 Git** |
+| 6. 推送（push） | ⬜ 待做 | 装完 Git 后双击脚本即可 |
 
-**所以明天只做第 5 步。** 不用重新建仓库，不用重新提交代码。
+**关键发现**：`push-to-github.bat` 报错「`git` 不是内部或外部命令」，
+不是脚本写错了，是**电脑上确实没有 git 这个程序**。
 
----
-
-## 二、开工前先解决网络（重要）
-
-你的网络到 GitHub 是「能连上但传不动」，直接推会卡死。
-
-**先做这个二选一：**
-
-- **A. 有加速器 / 梯子** → 打开它，保持开着，再做第三步
-- **B. 没有加速器** → **别硬试了**，直接告诉 AI「我没有加速器，转 Gitee」，
-  换国内站（码云），十分钟搞定，简历上一样能点开
+之前帮你把代码提交好（4 个 commit），用的是我这边的工具，它不在你电脑上。
 
 ---
 
-## 三、打开 Git Bash（命令行窗口）
+## 二、第一步：装 Git（约 3 分钟）
 
-**方法一（推荐，最省事）：**
+### 1. 找到安装包
 
-1. 打开**文件资源管理器**（任务栏那个黄色文件夹图标）
-2. 在**地址栏**输入下面这行，回车：
-   ```
-   C:\Users\hyf\Desktop\risk-learning
-   ```
-3. 现在你就在 `risk-learning` 文件夹里了
-4. 在文件夹**空白处**（不要点在文件上）**右键**
-5. 菜单里点 **`Open Git Bash here`**（中文版可能写「Git Bash Here」）
-6. 黑窗口弹出 —— **而且已经自动站在正确的位置了**
+**桌面上已经放好了**：
 
-**方法二（搜索打开）：**
-
-1. 按 `Win` 键，搜 `Git Bash`
-2. 搜索结果里**双击左边那条 `git bash`**（不是右边的网页介绍）
-3. 窗口出来后，手动进去：
-   ```bash
-   cd "C:/Users/hyf/Desktop/risk-learning"
-   ```
-
-**怎么确认自己站对了位置？** 敲这一句回车：
-
-```bash
-pwd
+```
+Git-2.56.0.2-64-bit.exe
 ```
 
-应该显示：
-```
-/c/Users/hyf/Desktop/risk-learning
-```
+这是 Git 官方安装包，从国内镜像站（npmmirror）下的，63.7 MB。
+如果双击提示"Windows 已保护你的电脑" → 点 **`更多信息`** → **`仍要运行`**（这是正常的，因为是自己下载的安装包）。
 
-只要这行对，就可以往下走。
+### 2. 一路点 `Next`
+
+安装向导大概有 10 屏，**全部保持默认，一直点 `Next`** 就行。只有一处要留意：
+
+> **「Adjusting your PATH environment」** 这一屏
+> 默认选中的是中间的 **`Git from the command line and also from 3rd-party software`**
+> → **保持这个不要动**。千万不要选最上面的 `Use Git from Git Bash only`。
+> （这一屏决定了 `.bat` 脚本能不能找到 git）
+
+其他屏（编辑器、换行符、终端类型、额外选项）默认都对，直接过。
+
+### 3. 点 `Install` → 等进度条 → 点 `Finish`
+
+### 4. ⚠️ 装完后：关掉所有已开着的黑窗口
+
+因为 Windows 要重新加载 PATH，**之前打开的 cmd / Git Bash 窗口不会知道 git 装好了**。
+重新打开才生效。
+
+### 5. 验证装好了没有
+
+按 `Win` 键，搜 **`Git Bash`**。
+- 搜出来**能打开的软件**（不是网页结果）→ 装好了
+- 或者：开一个新的黑窗口，敲 `git --version`，能打印版本号就对了
 
 ---
 
-## 四、生成新的 Token（登录用）
+## 三、第二步：双击脚本推送（约 1 分钟）
 
-**为什么要 Token？** GitHub 从 2021 年起就不允许用账号密码推代码了，必须用 Token 代替密码。
-
-1. 浏览器打开：`github.com/settings/tokens`
-2. 点 **`Generate new token`** → 选 **`Generate new token (classic)`**
-3. **Note** 栏随便填，例如 `risk-learning laptop`
-4. **Expiration** 选 **`90 days`**
-5. 权限列表里，**勾最上面那个 `repo`**（勾大框，子项会自动全勾）
-6. 拉到最底，点绿色 **`Generate token`**
-7. ⚠️ 页面会显示一串 `ghp_xxxxxxxx...` —— **立刻复制保存**
-   - **这串只显示这一次，刷新就没了**
-   - ⚠️ **这次不要发给 AI**，自己留着（上次发出去的那个已经作废了）
-
----
-
-## 五、推送代码
-
-在 Git Bash 窗口里，敲这一句，回车：
-
-```bash
-git push origin main
-```
-
-**接下来会发生的事：**
-
-1. 弹出一个小窗口（Git Credential Manager）要你登录
-2. 如果它问 **Username** → 填 `01huyifan`
-3. 如果它问 **Password / Token** → **粘贴刚才那串 `ghp_...`**
-4. 等它跑
-
-**成功的标志（会看到类似这样的输出）：**
+回到 `C:\Users\hyf\Desktop\risk-learning` 文件夹，**双击**：
 
 ```
-Enumerating objects: ...
-Writing objects: 100% (...)
-To https://github.com/01huyifan/risk-learning.git
- * [new branch]      main -> main
+push-to-github.bat
 ```
 
-**看到 `main -> main` 就是成功了。**
+**会发生什么：**
 
----
+1. 弹出黑窗口，显示 `Git found. Starting upload ...`
+2. **第一次推送会弹出一个登录窗口**（Git Credential Manager）
+   - 一般会开浏览器让你登录 GitHub → 登录并点 `Authorize`
+   - 或者在窗口里填：用户名 `01huyifan`，密码用 **Token**（见第五节）
+3. 等它传输，结束后窗口会停住显示 `请按任意键继续`
 
-## 六、验证
+**成功的标志：** 窗口里有一行带 `main`（例如 `main -> main`），**并且没有红色报错**。
 
-浏览器打开你的仓库地址：
+**然后打开验证：**
 
 ```
 https://github.com/01huyifan/risk-learning
 ```
 
-**能看到文件列表（README.md、01_clean 文件夹等）就说明全通了。**
+能看到 `README.md`、`01_clean`、`02_feature`、`03_model` 这些文件和文件夹 → **大功告成。**
 
 ---
 
-## 七、常见报错对照
+## 四、万一双击脚本失败
 
-| 报错 | 意思 | 怎么办 |
-|---|---|---|
-| 卡住不动、几十分钟没输出 | 网络传不动 | 开加速器重试；或转 Gitee |
-| `Authentication failed` | Token 不对或过期 | 重新生成 Token，或者去掉多余空格 |
-| `Support for password authentication was removed` | 你填的是账号密码，不是 Token | 必须填 `ghp_...` 那串 |
-| `remote origin already exists` | 远端已连过了 | 不用管，直接继续 push |
-| `failed to push some refs` | 远端有你没有的东西 | 截图给 AI 看 |
-| 弹窗一直不出现 | 凭据管理器没启动 | 在窗口里手动敲用户名和 Token |
+### 情况 A：窗口一闪就没了
 
-**任何一步卡住 → 直接截图发给 AI，不用自己琢磨。**
+说明脚本本身没跑起来。改用**手动版**（下面第五节）。
+
+### 情况 B：窗口报 `Git was NOT found`
+
+说明 Git 没装成功，或者 PATH 没生效。回第二步，重点检查：
+- 安装时那一屏有没有选成 `Use Git from Git Bash only`
+- 装完后有没有**关掉旧窗口再重开**
+
+### 情况 C：报红色错误（如 `Authentication failed`）
+
+- `Authentication failed` → Token 不对或过期 → 重新生成（第五节）
+- `Support for password authentication was removed` → 你填的是账号密码，必须填 Token
+- 卡住几十分钟不动 → 网络问题 → 开加速器重试，或告诉我转 Gitee
 
 ---
 
-## 八、成功之后：以后每天怎么用
+## 五、手动版（Git Bash）
 
-**每天写完代码，只要三条命令：**
+只有双击法失败时才需要。
+
+### 1. 打开 Git Bash
+
+- 文件资源管理器进到 `C:\Users\hyf\Desktop\risk-learning`
+- 文件夹**空白处右键** → **`Open Git Bash here`**
+- 黑窗口弹出，已经站在正确目录
+
+**验证位置：** 敲 `pwd`，应显示 `/c/Users/hyf/Desktop/risk-learning`
+
+### 2. 生成 Token（登录用）
+
+GitHub 早就不允许用账号密码推代码了，要用 Token 代替：
+
+1. 浏览器打开 `github.com/settings/tokens`
+2. `Generate new token` → **`Generate new token (classic)`**
+3. **Note** 随便填，如 `risk-learning laptop`
+4. **Expiration** 选 `90 days`
+5. 勾最上面那个 **`repo`**（勾大框，子项自动全选）
+6. 拉到底点绿色 **`Generate token`**
+7. ⚠️ 出现一串 `ghp_xxxx...` → **立刻复制**，**只显示这一次**
+8. ⚠️ **不要发给任何人**，自己留着
+
+### 3. 推送
+
+```bash
+git push origin main
+```
+
+问 Username → `01huyifan`；问 Password → 粘那串 `ghp_...`
+
+---
+
+## 六、成功之后：以后每天怎么用
+
+以后写完代码，三条命令（或者直接双击 `push-to-github.bat`）：
 
 ```bash
 cd "C:/Users/hyf/Desktop/risk-learning"
 git add -A
-git commit -m "写了什么就填这里"
+git commit -m "今天写了什么就填这里"
 git push
 ```
 
-**第一次之后，push 就不再问账号密码了**（凭据管理器会记住）。
+第一次之后就不再问账号密码了。
 
 ---
 
 ## 附：这个项目是什么
 
-`risk-learning` 是你风控算法学习路线的**代码仓库**，三个核心目录：
+`risk-learning` 是你的风控算法学习路线的**代码仓库**：
 
-- `01_clean/` —— 数据清洗（脏数据怎么修）
-- `02_feature/` —— 特征工程（WOE、IV、分箱）
-- `03_model/` —— 模型建模（逻辑回归评分卡、LightGBM）
+| 目录 | 内容 |
+|---|---|
+| `01_clean/` | 数据清洗（脏数据修正） |
+| `02_feature/` | 特征工程（WOE、IV、分箱） |
+| `03_model/` | 建模（逻辑回归评分卡、LightGBM） |
+| `04_fraud/` | 反欺诈 |
+| `05_report/` | 报告 |
+| `06_paper/` | 论文 |
+| `07_course/` | 课程作业 |
+| `data/` | 数据（**不上传**，已被 `.gitignore` 挡住） |
 
-**其他目录**：`04_fraud`（反欺诈）、`05_report`（报告）、`06_paper`（论文）、`07_course`（课程作业）、`data/`（数据，不上传）
+**已经跑通的结果**（重跑脚本可复现）：
 
-**已经跑通的结果**（重新运行脚本可以得到同样结果）：
-
-- 清洗后：30000 行 × 37 列，违约率 0.2212
-- IV 最高变量：PAY_0 = 0.873
-- 逻辑回归评分卡：AUC 0.7639 / KS 0.4178
+- 清洗后：30000 行 × 37 列，违约率 **0.2212**
+- IV 最高变量：**PAY_0 = 0.873**
+- 逻辑回归评分卡：**AUC 0.7639 / KS 0.4178**
+- LightGBM：AUC 0.7681（比 LR 只高 0.004，判为噪声，故选可解释性更好的 LR）
 
 ---
 
